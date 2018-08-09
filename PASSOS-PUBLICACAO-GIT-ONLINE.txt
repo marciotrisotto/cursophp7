@@ -1,0 +1,6 @@
+1. cd c:/xampp/htdocs/cursophp7/web/codeemailmkt
+2. git init
+3. git add .
+4. git commit -m "1 aplicação php7"
+5. git remote add origin https://github.com/marciotrisotto/cursophp7.git
+6. git push -u origin master

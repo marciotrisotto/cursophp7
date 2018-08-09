@@ -1,0 +1,12 @@
+cd c:/xampp/htdocs/cursophp7/web/codeemailmkt
+php -S localhost:8080 -t public public/index.php
+
+ACESSANDO CONSOLE DOCTRINE
+
+- CD C:\xampp\htdocs\cursophp7\web\codeemailmkt
+- Depois digitar vendor\bin\doctrine-module
+- Lembrar de habilitar a extensão do DB extension=php_pdo_mysql.dll no arquivo php.ini
+
+CRIAR ESTRUTURA DE TABELAS DOCTRINE
+
+C:\xampp\htdocs\cursophp7\web\codeemailmkt>vendor\bin\doctrine-module orm:schema-tool:create

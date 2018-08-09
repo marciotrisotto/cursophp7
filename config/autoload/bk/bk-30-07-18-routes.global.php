@@ -5,10 +5,10 @@ return [
         'invokables' => [
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class,
             App\Action\PingAction::class => App\Action\PingAction::class,
+            App\Action\TesteAction::class => App\Action\TesteAction::class,
         ],
         'factories' => [
             App\Action\HomePageAction::class => App\Action\HomePageFactory::class,
-            App\Action\TestePageAction::class => App\Action\TestePageFactory::class,			
         ],
     ],
 

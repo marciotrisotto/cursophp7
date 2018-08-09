@@ -1,0 +1,103 @@
+{% extends '@layout/default.html.twig' %}
+{% block content %}
+	
+	{{data }}
+	{{ "zend-expressive" }}
+	{{ 100 }}
+	{{ 25.2 }}
+	{{ 0 }}
+	{{ true }}
+	{{ false }}
+	{{ "<strong>teste</strong><br />" }}
+	<br />
+	Variável<br />
+	{% 
+		set um,
+		    dois = "var-zend",
+		            1000.86 
+	%}
+	{{ um }}
+	{{ dois }}
+	
+	{% set div %}
+	  <div> 
+	  	 php7 
+	  </div>
+	{% endset %}
+	{{ div }}
+	<br />
+	Operações <br />
+	{{ dois * 2}}
+	{{ 2 * 2}}		
+	{{ " minha string 1 " ~ " minha string 2 " ~ dois }}
+	<br /><br />
+	Array<br />
+	{% set array = [1,2,3,4,5] %}
+	{{ array[2] }} 
+	<br /><br />
+	Array Associativo<br />
+	{% set array_assoc = {"chave1":"valor1","chave2":"valor2"} %}
+	{{ array_assoc["chave1"] }}
+	
+	<br /><br />
+	Estrutura de repetição<br />
+	{% for i in 0..100 %}
+		{{ i }}
+	{% endfor %}
+	
+	<br /><br />
+	
+	{% for value in 'a'..'z' %}
+	   {{ loop.index }} - {{ value }} <br />
+	{% endfor %}
+	
+	<br />
+	
+	{% for key,value in array_assoc %}
+	   {{ loop.index }} - {{ key }} : {{ value }} <br />
+	{% endfor %}	
+	
+	<br />
+	Filtro
+	{% set negrito = "<strong>teste</strong>" %}
+	{{ negrito | raw }} <br />
+	{{ "<strong>teste</strong>" | escape }}<br />
+	{{ "teste " | trim }}<br />
+	{{ "teste " | trim('e') | upper}}<br />
+	{{"now" | date('d/m/y')}}
+	
+	<br /><br />
+	Estruturas condicionais	<br />
+	{% set num = 10 %}
+	{% if num > 2 and num < 15 %}
+		caiu no if
+	{% elseif num == 10 %}
+		caiu no elseif
+	{% else %}
+		caiu no else
+	{% endif %}
+	{% if not num %}
+		Not
+	{% endif %}
+	
+	
+	<br /><br />
+	Tags <br />
+	{% do MinhaClasse.setName("Márcio") %}
+	{{ MinhaClasse.name }}
+	<br /><br />
+	Include <br />
+	{% include "@app/home-page.html.twig" with {'data':data} %}	
+	<br /><br />
+	debug<br />
+	{% for i in range(0,100) %}
+		{{ i }} <br />
+	{% endfor %}
+	{{ dump(data) }}<br /><br />
+	{{ constant('CodeEmailMKT\\MinhaClasse::MINHA_CONSTANTE') }}
+	{{ constant('MINHA_CONSTANTE',MinhaClasse) }}
+{% endblock %}
+
+{% block title %} 
+	Teste Título 
+{% endblock %}

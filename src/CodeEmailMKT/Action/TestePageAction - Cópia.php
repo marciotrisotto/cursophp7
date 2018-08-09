@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace CodeEmailMKT\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,6 +24,9 @@ class TestePageAction
  
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-       return new HtmlResponse($this->template->render("app::teste",['data' => 'dados passados para o template']));
+       return new HtmlResponse($this->template->render("app::teste",[
+	   'data' => 'dados passados para o template',
+	   'MinhaClasse' => new \CodeEmailMKT\MinhaClasse()
+	   ]));
     }
 }
