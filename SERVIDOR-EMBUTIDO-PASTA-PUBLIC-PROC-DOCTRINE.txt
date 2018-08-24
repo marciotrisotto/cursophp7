@@ -7,6 +7,16 @@ ACESSANDO CONSOLE DOCTRINE
 - Depois digitar vendor\bin\doctrine-module
 - Lembrar de habilitar a extensão do DB extension=php_pdo_mysql.dll no arquivo php.ini
 
-CRIAR ESTRUTURA DE TABELAS DOCTRINE
 
+VALIDANDO DOCTRINE
+C:\xampp\htdocs\cursophp7\web\codeemailmkt>vendor\bin\doctrine-module orm:validate-schema
+
+
+CRIAR ESTRUTURA DE TABELAS DOCTRINE
 C:\xampp\htdocs\cursophp7\web\codeemailmkt>vendor\bin\doctrine-module orm:schema-tool:create
+
+
+UPDATE SCHEMA TOOL DOCTRINE
+vendor\bin\doctrine-module orm:schema-tool:update --dump-sql
+vendor\bin\doctrine-module orm:schema:update --force
+

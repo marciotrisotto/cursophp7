@@ -20,13 +20,14 @@ return [
        ],
 	   'driver' => [
 	   	 'CodeEmailMKT_driver' => [
-		 	'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+		 	'class' => 'Doctrine\ORM\Mapping\Driver\YamlDriver',
+		 	//'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',			
 			'cache' => 'array',
-			'paths' => [__DIR__ . '/../../src/CodeEmailMKT/Entity']
+			'paths' => [__DIR__ . '/../../src/CodeEmailMKT/Infrastructure/Persistence/Doctrine/ORM']
 		 ],
 		 'orm_default' => [
 		 	'drivers' => [
-				'CodeEmailMKT\Entity' => 'CodeEmailMKT_driver'
+				'CodeEmailMKT\Domain\Entity' => 'CodeEmailMKT_driver'
 			]
 		 ]
 	   ]
