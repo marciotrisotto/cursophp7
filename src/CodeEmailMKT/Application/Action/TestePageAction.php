@@ -2,6 +2,7 @@
 
 namespace CodeEmailMKT\Application\Action;
 
+use CodeEmailMKT\Domain\Entity\Customer;
 use CodeEmailMKT\Domain\Entity\Category;
 use CodeEmailMKT\Domain\Entity\Clientes;
 use CodeEmailMKT\Domain\Entity\Enderecos;

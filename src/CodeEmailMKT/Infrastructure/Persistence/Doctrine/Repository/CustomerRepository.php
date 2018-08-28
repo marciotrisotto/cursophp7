@@ -2,9 +2,9 @@
 
 namespace CodeEmailMKT\Infrastructure\Persistence\Doctrine\Repository;
 
-
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
+use CodeEmailMKT\Domain\Entity\Customer;
 
 class CustomerRepository extends EntityRepository implements CustomerRepositoryInterface {
 	
