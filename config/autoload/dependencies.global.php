@@ -1,9 +1,11 @@
 <?php
+
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
 use CodeEmailMKT\Infrastructure\Persistence\Doctrine\Repository\CustomerRepositoryFactory;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use CodeEmailMKT\Service;
 
 return [
     // Provides application-wide services.
@@ -22,9 +24,13 @@ return [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
 			CustomerRepositoryInterface::class => CustomerRepositoryFactory::class,
+			\Aura\Session\Session::class => \DaMess\Factory\AuraSessionFactory::class,
+			FlashMessageInterface::class => FlashMessageFactory::class
         ],
 		'aliases' => [
-    		'configuration' => 'config', //Doctrine needs a service called Configuration
+    		//'configuration' => 'config', //Doctrine needs a service called Configuration
+            'Configuration' => 'config', //Doctrine needs a service called Configuration
+            'Config' => 'config', //Doctrine needs a service called Configuration			
 ],
     ],
 ];

@@ -1,5 +1,11 @@
-<?php
- 
+<?php 
+
+use CodeEmailMKT\Application\Action\Customer;
+//use CodeEmailMKT\Application\Action\Customer\CustomerListPageAction;
+//use CodeEmailMKT\Application\Action\Customer\Factory\CustomerListPageFactory;
+//use CodeEmailMKT\Application\Action\Customer\CustomerCreatePageAction;
+//use CodeEmailMKT\Application\Action\Customer\Factory\CustomerCreatePageFactory;
+
 return [
     'dependencies' => [
         'invokables' => [
@@ -8,7 +14,9 @@ return [
         ],
         'factories' => [
             CodeEmailMKT\Application\Action\HomePageAction::class => CodeEmailMKT\Application\Action\HomePageFactory::class,
-            CodeEmailMKT\Application\Action\TestePageAction::class => CodeEmailMKT\Application\Action\TestePageFactory::class,			
+            CodeEmailMKT\Application\Action\TestePageAction::class => CodeEmailMKT\Application\Action\TestePageFactory::class,
+			Customer\CustomerListPageAction::class => Customer\Factory\CustomerListPageFactory::class,
+			Customer\CustomerCreatePageAction::class => Customer\Factory\CustomerCreatePageFactory::class
         ],
     ],
 
@@ -30,6 +38,18 @@ return [
             'path' => '/teste',
             'middleware' => CodeEmailMKT\Application\Action\TestePageAction::class,
             'allowed_methods' => ['GET'],
-        ],		
+        ],
+        [
+            'name' => 'customer.list',
+            'path' => '/admin/customer',
+            'middleware' => Customer\CustomerListPageAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'customer.create',
+            'path' => '/admin/customer/create',
+            'middleware' => Customer\CustomerCreatePageAction::class,
+            'allowed_methods' => ['GET','POST'],
+        ],						
     ],
 ];

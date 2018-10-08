@@ -4,31 +4,12 @@
 	{{data }}
 	<br /><br />
 	
-	<strong>Listagem Categorias Teste</strong> <br />
-	{% for categoria in categorias %}	
-		{{ categoria.name }} <br />
+	<strong>Listagem</strong> <br />
+	{% for customer in customers %}	
+		{{ customer.name }} <br />
 	{% endfor %}
 
 	<br />
-	<br />
-	
-	<strong>Listagem Clientes</strong> <br />
-	{% for cliente in result_clientes %}	
-		{{ cliente.nome }} -  {{ cliente.email }}<br />
-	{% endfor %}
-	
-	<br />
-	<br />	
-	
-
-	<strong>Listagem Endereços</strong> <br />
-	{% for endereco in result_enderecos %}	
-		{{ endereco.logradouro }} - {{ endereco.estado }}/{{ endereco.cidade }}<br />
-	{% endfor %}
-	
-	<br />
-	<br />	
-	
 	<br />		
 	
 	{% block title %} 

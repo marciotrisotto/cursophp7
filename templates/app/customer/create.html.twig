@@ -1,0 +1,38 @@
+{% extends '@layout/default.html.twig' %}
+{% block content %}
+
+	<div class="row">
+		<div class="col-md-8">
+		  <!-- general form elements -->
+		  <div class="box box-primary">
+			<!-- /.box-header -->
+			<!-- form start -->
+			<form name="form" role="form" method="post" action="{{ url('customer.create') }}">
+			  <div class="box-body">
+				<div class="form-group">
+				  <label for="name">Name</label>
+				  <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+				</div>
+				<div class="form-group">
+				  <label for="email">E-mail</label>
+				  <input type="email" class="form-control" id="email" name="email" required="required" placeholder="E-mail">
+				</div>
+			  </div>
+			  <!-- /.box-body -->
+	
+			  <div class="box-footer">
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			  </div>
+			</form>
+		  </div>
+	  </div>
+
+{% endblock %}
+
+{% block title %} 
+	Novo Contato - {{ parent() }}
+{% endblock %}
+
+{% block page_header %}
+	Cadastro de Customers
+{% endblock %}

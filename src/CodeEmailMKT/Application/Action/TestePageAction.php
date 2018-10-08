@@ -3,21 +3,12 @@
 namespace CodeEmailMKT\Application\Action;
 
 use CodeEmailMKT\Domain\Entity\Customer;
-use CodeEmailMKT\Domain\Entity\Category;
-use CodeEmailMKT\Domain\Entity\Clientes;
-use CodeEmailMKT\Domain\Entity\Enderecos;
-use Doctrine\ORM\EntityManager;	
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use Zend\Expressive\Plates\PlatesRenderer;
-use Zend\Expressive\Twig\TwigRenderer;
-use Zend\Expressive\ZendView\ZendViewRenderer;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
-
 
 class TestePageAction
 {
@@ -45,7 +36,7 @@ class TestePageAction
 
 	   $this->repository->create($customer);
 	   
- 	   //$categorias = $this->manager->getRepository(Category::class)->findAll();
+ 	   $customers = $this->repository->findAll();
 	   
 	   //cliente
 	   //$clientes = new Clientes();
@@ -71,7 +62,7 @@ class TestePageAction
 	   
        return new HtmlResponse($this->template->render("app::teste",[
 	   'data' => 'dados passados para o template',
-	   'categorias' => [],
+	   'customers' => $customers,
 	   'result_clientes' => [],
 	   'result_enderecos' => [],	   	   
 	   'MinhaClasse' => new \CodeEmailMKT\MinhaClasse()

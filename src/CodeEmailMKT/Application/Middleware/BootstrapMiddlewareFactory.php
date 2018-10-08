@@ -2,6 +2,8 @@
 
 namespace CodeEmailMKT\Application\Middleware;
 
+use CodeEmailMKT\Application\Middleware\BootstrapMiddleware;
+use CodeEmailMKT\Service\FlashMessageInterface;
 use CodeEmailMKT\Infrastructure\Bootstrap;
 use Interop\Container\ContainerInterface;
 //use Zend\Expressive\Router\RouterInterface;
@@ -13,6 +15,7 @@ class BootstrapMiddlewareFactory
     {
  
 		$bootstrap = new Bootstrap();
-        return new BootstrapMiddleware($bootstrap);
+		$flash = $container->get(FlashMessageInterface::class);
+        return new BootstrapMiddleware($bootstrap,$flash);
     }
 }
