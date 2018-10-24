@@ -2,6 +2,7 @@
 
 namespace CodeEmailMKT\Application\Action\Customer;
 
+//use Doctrine\ORM\EntityManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -13,9 +14,17 @@ class CustomerListPageAction
 
     private $template;
 	//private $manager;
-	private $repository;	
+	
+	/**
+	* @var CustomerRepositoryInterface
+	*/
+	private $repository;
+	
 
-    public function __construct(CustomerRepositoryInterface $repository,Template\TemplateRendererInterface $template = null)
+    public function __construct(
+			CustomerRepositoryInterface $repository,
+			Template\TemplateRendererInterface $template
+	 )
     {
 	
         $this->template = $template;
@@ -28,10 +37,17 @@ class CustomerListPageAction
     {
 	
  	   $customers = $this->repository->findAll();
+	   //$customer = $this->repository->find(1);
+	   //$customer->setName('Marcinho');
+	   //$this->entityManager->detach($customer);
+	   //$this->repository->update($customer);
+	   
+	   $flash = $request->getAttribute('flash');
 	   //echo $request->getAttribute('flash')->getMessage('success');
 	   
        return new HtmlResponse($this->template->render("app::customer/list",[
-	   'customers' => $customers
+	   'customers' => $customers,
+	   'message' => $flash->getMessage('success')
 	   ]));
 	   
     }

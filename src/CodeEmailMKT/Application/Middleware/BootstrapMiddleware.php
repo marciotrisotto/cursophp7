@@ -2,10 +2,10 @@
 
 namespace CodeEmailMKT\Application\Middleware;
 
-use CodeEmailMKT\Service\BootstrapInterface;
+use CodeEmailMKT\Domain\Service\BootstrapInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-
+use CodeEmailMKT\Domain\Service\FlashMessageInterface;
 
 class BootstrapMiddleware
 {

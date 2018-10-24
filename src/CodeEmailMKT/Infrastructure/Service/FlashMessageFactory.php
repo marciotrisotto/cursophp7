@@ -2,6 +2,7 @@
 
 namespace CodeEmailMKT\Infrastructure\Service;
 
+use Aura\Session\Session;
 use Interop\Container\ContainerInterface;
 
 class FlashMessageFactory

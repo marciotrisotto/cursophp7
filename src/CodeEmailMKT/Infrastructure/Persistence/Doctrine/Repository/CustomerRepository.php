@@ -14,7 +14,11 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 	}
 	
 	public function update($entity){
-		
+		if($this->getEntityManager()->getUnitOfWork()->getEntityState($entity)!=\Doctrine\ORM\UnitOfWork::STATE_MANAGED){
+			$this->getEntityManager()->merge($entity);
+		}
+		$this->getEntityManager()->flush();
+		return $entity;
 	}
 	
 	public function remove($entity){
@@ -22,6 +26,8 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 	}
 	
 	public function find($id){
+		
+		return parent::find($id);
 		
 	}
 	

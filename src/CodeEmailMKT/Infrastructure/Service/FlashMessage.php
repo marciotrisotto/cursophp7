@@ -2,11 +2,20 @@
 
 namespace CodeEmailMKT\Infrastructure\Service;
 
-use CodeEmailMKT\Service\FlashMessageInterface;
+use Aura\Session\Segment;
+use Aura\Session\Session;
+use CodeEmailMKT\Domain\Service\FlashMessageInterface;
 
 class FlashMessage implements FlashMessageInterface {
 
+	/**
+	* @var Session
+	*/
 	private $session;
+	
+	/**
+	* @var Segment
+	*/	
 	private $segment;
 
 	public function __construct(Session $session) {
@@ -19,7 +28,7 @@ class FlashMessage implements FlashMessageInterface {
 	
 	public function setNamespace($name = __NAMESPACE__){
 	
-		$this->segment = $this->session-getSegment($name);
+		$this->segment = $this->session->getSegment($name);
 		return $this;
 	
 	}
