@@ -7,8 +7,8 @@
 		  <div class="box box-primary">
 			<!-- /.box-header -->
 			<!-- form start -->
-			<form name="form" role="form" method="post" action="{{ url('customer.update',{id:customer.id}) }}">
-			  <input type="hidden" class="form-control" name="_method" value="PUT"/>
+			<form name="form_disabled" role="form">
+			<fieldset disabled>
 			  <div class="box-body">
 				<div class="form-group">
 				  <label for="name">Name</label>
@@ -20,20 +20,24 @@
 				</div>
 			  </div>
 			  <!-- /.box-body -->
-	
+			  </fieldset>
+			  </form>
+			  
+			  <form name="form" role="form" method="post" action="{{ url('customer.delete',{id:customer.id}) }}">
 			  <div class="box-footer">
-				<button type="submit" class="btn btn-primary">Salvar</button>
+				<button type="submit" class="btn btn-danger">Excluir</button>
+  			    <input type="hidden" class="form-control" name="_method" value="DELETE"/>				
 			  </div>
-			</form>
+ 			  </form>  
 		  </div>
 	  </div>
 
 {% endblock %}
 
 {% block title %} 
-	Edição de Contato - {{ parent() }}
+	Exclusão de Contato - {{ parent() }}
 {% endblock %}
 
 {% block page_header %}
-	Edição de Contato - {{ customer.name }}
+	Exclusão de Contato - {{ customer.name }}
 {% endblock %}

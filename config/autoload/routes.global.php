@@ -17,7 +17,8 @@ return [
             CodeEmailMKT\Application\Action\TestePageAction::class => CodeEmailMKT\Application\Action\TestePageFactory::class,
 			Customer\CustomerListPageAction::class => Customer\Factory\CustomerListPageFactory::class,
 			Customer\CustomerCreatePageAction::class => Customer\Factory\CustomerCreatePageFactory::class,
-			Customer\CustomerUpdatePageAction::class => Customer\Factory\CustomerUpdatePageFactory::class
+			Customer\CustomerUpdatePageAction::class => Customer\Factory\CustomerUpdatePageFactory::class,
+			Customer\CustomerDeletePageAction::class => Customer\Factory\CustomerDeletePageFactory::class			
         ],
     ],
 
@@ -56,12 +57,23 @@ return [
             'name' => 'customer.update',
             'path' => '/admin/customer/update/{id}',
             'middleware' => Customer\CustomerUpdatePageAction::class,
-            'allowed_methods' => ['GET','POST'],
+            'allowed_methods' => ['GET','PUT'],
 			'options' => [
 				'tokens' => [
 					'id' => '\d+'
 				]
 			]
-        ],								
+        ],				
+ [
+            'name' => 'customer.delete',
+            'path' => '/admin/customer/delete/{id}',
+            'middleware' => Customer\CustomerDeletePageAction::class,
+            'allowed_methods' => ['GET','DELETE'],
+			'options' => [
+				'tokens' => [
+					'id' => '\d+'
+				]
+			]
+        ],										
     ],
 ];

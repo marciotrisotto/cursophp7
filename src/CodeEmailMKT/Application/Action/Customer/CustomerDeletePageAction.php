@@ -11,7 +11,7 @@ use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 
-class CustomerUpdatePageAction
+class CustomerDeletePageAction
 {
  	
     private $template;
@@ -35,20 +35,17 @@ class CustomerUpdatePageAction
  	
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-
+	   
    	   $id = $request->getAttribute('id');
 	   $entity = $this->repository->find($id);
- 	   $flash = $request->getAttribute('flash');	 	   
-	   if($request->getMethod() == "PUT") {
-	      $data = $request->getParsedBody();
-		  $entity->setName($data['name'])
-  		  		 ->setEmail($data['email']);
-		  $this->repository->update($entity);
-		  $flash->setMessage('success','Contato atualizado com sucesso!');
+	   if($request->getMethod() == "DELETE") {
+	 	  $flash = $request->getAttribute('flash');
+		  $this->repository->remove($entity);
+		  $flash->setMessage('success','Contato removido com sucesso!');
 		  $uri = $this->router->generateUri('customer.list');
 		  return new RedirectResponse($uri);
 	   }
-       return new HtmlResponse($this->template->render("app::customer/update",[
+       return new HtmlResponse($this->template->render("app::customer/delete",[
 	    'customer' => $entity
 	   ]));
 	   

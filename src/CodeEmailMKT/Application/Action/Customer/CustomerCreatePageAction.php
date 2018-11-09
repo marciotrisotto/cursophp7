@@ -10,12 +10,13 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use Zend\View\HelperPluginManager;
+use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
 
 class CustomerCreatePageAction
 {
  	
     private $template;
-	//private $manager;
 	private $repository;
 	private $router;
  	
@@ -24,20 +25,49 @@ class CustomerCreatePageAction
 		Template\TemplateRendererInterface $template = null,
 		RouterInterface $router
 	  )
+	  
     {
 		
         $this->template = $template;
         //$this->manager = $manager;
         $this->repository = $repository;
-        $this->router = $router;
+        $this->router = $router;	
 		
     }
  	
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
 
+	   $myForm = new Form();
+	   $myForm->add([
+	    'name' => 'name',
+		'type' => 'Text',
+		'options' => [
+			'label' => 'Name'
+		]
+	   ]);
+	   
+	   $myForm->add([
+	    'name' => 'email',
+		'type' => 'Text',
+		'options' => [
+			'label' => 'E-mail'
+		]		
+	   ]);	   
+
+	   $myForm->add([
+	    'name' => 'Submit',
+		'type' => 'Submit',
+		'attributes' => [
+			'value' => 'Submit',
+		],
+		'options' => [
+			'label' => 'Submit'
+		]		
+	   ]);
+	   
 	   if($request->getMethod() == "POST") {
-		  $flash = $request->getAttribute('flash');	   
+		  $flash = $request->getAttribute('flash');
 	      $data = $request->getParsedBody();
 		  $entity = new Customer();
 		  $entity->setName($data['name'])
@@ -46,10 +76,9 @@ class CustomerCreatePageAction
 		  $flash->setMessage('success','Contato cadastrado com sucesso!');
 		  $uri = $this->router->generateUri('customer.list');
 		  return new RedirectResponse($uri);
-		  
 	   }
        return new HtmlResponse($this->template->render("app::customer/create",[
-	   // 'array' => $var
+	   'myForm' => $myForm
 	   ]));
 	   
     }
