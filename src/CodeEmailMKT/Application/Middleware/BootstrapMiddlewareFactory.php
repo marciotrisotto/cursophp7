@@ -14,8 +14,8 @@ class BootstrapMiddlewareFactory
     public function __invoke(ContainerInterface $container)
     {
  
-		$bootstrap = new Bootstrap();
-		$flash = $container->get(FlashMessageInterface::class);
+        $bootstrap = new Bootstrap();
+	$flash = $container->get(FlashMessageInterface::class);
         return new BootstrapMiddleware($bootstrap,$flash);
     }
 }

@@ -6,14 +6,15 @@ use CodeEmailMKT\Domain\Service\BootstrapInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use CodeEmailMKT\Domain\Service\FlashMessageInterface;
+use Zend\View\HelperPluginManager;
 
 class TwigMiddleware
 {
  
- 	private $twigEnv;
-	private $helperManager;
+    private $twigEnv;
+    private $helperManager;
  
-    public function __construct(Twig_Enviroment $twigEnv, HelperPluginManager $helperManager)
+    public function __construct(\Twig_Environment $twigEnv, HelperPluginManager $helperManager)
     {
 		$this->twigEnv = $twigEnv;
 		$this->helperManager = $helperManager;

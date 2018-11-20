@@ -2,5 +2,5 @@
 2. git init
 3. git add .
 4. git commit -m "1 aplicação php7"
-5. git remote add origin https://github.com/marciotrisotto/cursophp7.git
+5. git remote add origin https://github.com/marciotrisotto/cursophp7.git  (utilizar apenas no primeiro envio)
 6. git push -u origin master

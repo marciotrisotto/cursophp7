@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace CodeEmailMKT\Application\Middleware;
 
@@ -12,9 +12,9 @@ class TwigMiddlewareFactory
     public function __invoke(ContainerInterface $container)
     {
  
-		$twigRenderer = $container->get(TemplateRendererInterface::class);
-		$twigEnv = $twigRenderer->getTemplate();
-		$helperManager = $container->get(HelperPluginManager::class);
-        return new TwigMiddleware($twigEnv,$helperManager);
+	$twigRenderer = $container->get(TemplateRendererInterface::class);
+	$twigEnv = $twigRenderer->getTemplate();
+	$helperManager = $container->get(HelperPluginManager::class);
+        return new TwigMiddleware($twigEnv, $helperManager);
     }
 }

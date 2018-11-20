@@ -16,7 +16,7 @@ class HelperPluginManagerFactory
 		//var_dump($viewHelpers);
 		//echo $viewHelpers;		
 		//exit;
-		$manager = new HelperPluginManager($container,viewHelpers);
+		$manager = new HelperPluginManager($container,$viewHelpers);
 		$phpRenderer = new PhpRenderer();
 		$phpRenderer->setHelperPluginManager($manager);
 		

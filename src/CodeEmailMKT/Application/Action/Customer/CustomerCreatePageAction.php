@@ -9,6 +9,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
+use CodeEmailMKT\Application\Form\CustomerForm;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Zend\View\HelperPluginManager;
 use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
@@ -38,33 +39,7 @@ class CustomerCreatePageAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
 
-	   $myForm = new Form();
-	   $myForm->add([
-	    'name' => 'name',
-		'type' => 'Text',
-		'options' => [
-			'label' => 'Name'
-		]
-	   ]);
-	   
-	   $myForm->add([
-	    'name' => 'email',
-		'type' => 'Text',
-		'options' => [
-			'label' => 'E-mail'
-		]		
-	   ]);	   
-
-	   $myForm->add([
-	    'name' => 'Submit',
-		'type' => 'Submit',
-		'attributes' => [
-			'value' => 'Submit',
-		],
-		'options' => [
-			'label' => 'Submit'
-		]		
-	   ]);
+           $form = new CustomerForm();
 	   
 	   if($request->getMethod() == "POST") {
 		  $flash = $request->getAttribute('flash');
@@ -78,7 +53,7 @@ class CustomerCreatePageAction
 		  return new RedirectResponse($uri);
 	   }
        return new HtmlResponse($this->template->render("app::customer/create",[
-	   'myForm' => $myForm
+	   'form' => $form
 	   ]));
 	   
     }
