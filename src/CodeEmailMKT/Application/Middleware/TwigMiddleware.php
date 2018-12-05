@@ -24,7 +24,6 @@ class TwigMiddleware
     {
 	
 		$helperManager = $this->helperManager;
-		$this->twigEnv->registerUndefinedFunctionCallback(function(){
 			$this->twigEnv->registerUndefinedFunctionCallback(function($name) use ($helperManager) {
 				if(!$helperManager->has($name)){
 					return false;
@@ -33,7 +32,6 @@ class TwigMiddleware
 				$options = ['is_safe' => ['html']];
 				return new \Twig_SimpleFunction(null,$callable,$options);
 			});
-		});
 		return $next($request,$response);
 		
     }

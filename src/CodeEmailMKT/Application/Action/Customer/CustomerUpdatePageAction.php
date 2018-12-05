@@ -9,7 +9,9 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
+use CodeEmailMKT\Application\Form\CustomerForm;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use CodeEmailMKT\Application\Form\HttpMethodElement;
 
 class CustomerUpdatePageAction
 {
@@ -38,18 +40,28 @@ class CustomerUpdatePageAction
 
    	   $id = $request->getAttribute('id');
 	   $entity = $this->repository->find($id);
- 	   $flash = $request->getAttribute('flash');	 	   
+ 	   	
+           $form = new CustomerForm();
+           $form->add(new HttpMethodElement('PUT'));
+           $form->bind($entity);
+           
 	   if($request->getMethod() == "PUT") {
-	      $data = $request->getParsedBody();
-		  $entity->setName($data['name'])
-  		  		 ->setEmail($data['email']);
-		  $this->repository->update($entity);
+              $flash = $request->getAttribute('flash');
+	      $dataRaw = $request->getParsedBody();
+              $form->setData($dataRaw);
+              
+              if($form->isValid()){
+                  $entity = $form->getData();
+                  $this->repository->update($entity);
 		  $flash->setMessage('success','Contato atualizado com sucesso!');
 		  $uri = $this->router->generateUri('customer.list');
 		  return new RedirectResponse($uri);
-	   }
-       return new HtmlResponse($this->template->render("app::customer/update",[
-	    'customer' => $entity
+              }
+              
+	   }       
+           
+           return new HtmlResponse($this->template->render("app::customer/update",[
+	    'form' => $form
 	   ]));
 	   
     }

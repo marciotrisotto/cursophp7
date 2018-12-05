@@ -1,0 +1,58 @@
+<?php
+
+namespace CodeEmailMKT\Application\InputFilter;
+
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
+use Zend\InputFilter\InputFilter;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\NotEmpty;
+
+class CustomerInputFilter extends InputFilter {
+    
+    public function __construct(){
+        
+            $this->add([
+                'name' => 'name',
+                'required' => false,
+                'filters' => [
+                  ['name' => StringTrim::class],
+                  ['name' => StripTags::class]
+                ]
+            ]);
+            
+            $this->add([
+                'email' => 'email',
+                'required' => true,
+                'filters' => [
+                  ['name' => StringTrim::class],
+                ],
+                'validators' => [
+                   [
+                      'name' => NotEmpty::class,
+                      'break_chain_on_failure' => true,
+                      'options' => [
+                          'messages' => [
+                            NotEmpty::IS_EMPTY => "Este campo é requerido."
+                          ]
+                      ]
+                   ]
+                ]
+               ]);
+            
+                $this->add([
+                    'email' => 'email',
+                    'filters' => [
+                      ['name' => EmailAddress::class],
+                    ],                    
+                      'options' => [
+                          'messages' => [
+                            EmailAddress::INVALID => "Este e-mail não é válido.",
+                            EmailAddress::INVALID_FORMAT => "Este e-mail não é válido."
+                           ]
+                      ]
+                ]);            
+                
+    }
+    
+}

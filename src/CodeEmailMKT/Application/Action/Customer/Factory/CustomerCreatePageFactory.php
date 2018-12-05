@@ -7,6 +7,7 @@ use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use CodeEmailMKT\Application\Form\CustomerForm;
 
 class CustomerCreatePageFactory
 {
@@ -16,6 +17,7 @@ class CustomerCreatePageFactory
         $template = $container->get(TemplateRendererInterface::class);
         $repository = $container->get(CustomerRepositoryInterface::class);
 	$router = $container->get(RouterInterface::class);
-        return new CustomerCreatePageAction($repository,$template,$router);
+        $form = $container->get(CustomerForm::class);
+        return new CustomerCreatePageAction($repository,$template,$router,$form);
     }
 }

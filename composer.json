@@ -35,14 +35,14 @@
         "php-http/curl-client": "^1.5",
         "guzzlehttp/psr7": "^1.3",
         "php-http/message": "^1.3",
-        "damess/expressive-session-middleware": "^1.0"
+        "damess/expressive-session-middleware": "^1.0",
+        "codeedu/zendexpr-doctrine-fixture": "0.0.1",
+        "fzaninotto/faker": "^1.8"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.3",
-        "filp/whoops": "^1.1 || ^2.0",
-        "codeedu/zendexpr-doctrine-fixture": "0.0.1",
-        "fzaninotto/faker": "^1.6"
+        "filp/whoops": "^1.1 || ^2.0"
     },
     "autoload": {
         "psr-4": {

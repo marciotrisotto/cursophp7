@@ -33,7 +33,8 @@ class CustomerForm extends Form {
                 'label' => 'E-mail'
             ],
             'attributes' => [
-                'id' => 'email'
+                'id' => 'email',
+                //'type' => 'email'
             ]
         ]);     
         

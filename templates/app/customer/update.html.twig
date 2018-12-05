@@ -1,30 +1,33 @@
 {% extends '@layout/default.html.twig' %}
 {% block content %}
 
+    {% include '@app/customer/_form-element.html.twig' %}
+
+        {% set submit = form.get('submit') %}
+        {%
+           do submit.setAttribute('class','btn btn-primary').setLabel('Editar')
+        %}
+
+        {% do form.setAttribute('action',url('customer.update',{id:form.getObject().id})) %}
+        {% do form.prepare() %}
+
 	<div class="row">
 		<div class="col-md-8">
 		  <!-- general form elements -->
 		  <div class="box box-primary">
 			<!-- /.box-header -->
 			<!-- form start -->
-			<form name="form" role="form" method="post" action="{{ url('customer.update',{id:customer.id}) }}">
-			  <input type="hidden" class="form-control" name="_method" value="PUT"/>
 			  <div class="box-body">
-				<div class="form-group">
-				  <label for="name">Name</label>
-				  <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ customer.name }}" />
-				</div>
-				<div class="form-group">
-				  <label for="email">E-mail</label>
-				  <input type="email" class="form-control" id="email" name="email" required="required" placeholder="E-mail" value="{{ customer.email }}" />
-				</div>
+                              {{ form().openTag(form) | raw }}
+                              {{ formHidden(form.get('_method')) }}
+                                {% include '@app/customer/_form.html.twig' %}
+                                <div class="box-footer">
+                                    {{ formButton(submit) }}
+                                </div>                                    
+                                                             
+                              {{ form().closeTag(form) | raw }}
+
 			  </div>
-			  <!-- /.box-body -->
-	
-			  <div class="box-footer">
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			  </div>
-			</form>
 		  </div>
 	  </div>
 
@@ -35,5 +38,5 @@
 {% endblock %}
 
 {% block page_header %}
-	Edição de Contato - {{ customer.name }}
+	Edição de Contato - {{ form.getObject().name }}
 {% endblock %}

@@ -1,34 +1,33 @@
 {% extends '@layout/default.html.twig' %}
 {% block content %}
 
+        {% include '@app/customer/_form-element.html.twig' %}
+
+        {% set submit = form.get('submit') %}
+        {%
+           do submit.setAttribute('class','btn btn-danger').setLabel('Excluir')
+        %}
+
+        {% do form.setAttribute('action',url('customer.delete',{id:form.getObject().id})) %}
+        {% do form.prepare() %}
+
 	<div class="row">
 		<div class="col-md-8">
 		  <!-- general form elements -->
 		  <div class="box box-primary">
 			<!-- /.box-header -->
 			<!-- form start -->
-			<form name="form_disabled" role="form">
 			<fieldset disabled>
-			  <div class="box-body">
-				<div class="form-group">
-				  <label for="name">Name</label>
-				  <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ customer.name }}" />
-				</div>
-				<div class="form-group">
-				  <label for="email">E-mail</label>
-				  <input type="email" class="form-control" id="email" name="email" required="required" placeholder="E-mail" value="{{ customer.email }}" />
-				</div>
-			  </div>
+                        {% include '@app/customer/_form.html.twig' %}
 			  <!-- /.box-body -->
-			  </fieldset>
-			  </form>
+			</fieldset>
 			  
-			  <form name="form" role="form" method="post" action="{{ url('customer.delete',{id:customer.id}) }}">
-			  <div class="box-footer">
-				<button type="submit" class="btn btn-danger">Excluir</button>
-  			    <input type="hidden" class="form-control" name="_method" value="DELETE"/>				
-			  </div>
- 			  </form>  
+			  {{ form().openTag(form) | raw }}
+                                {{ formHidden(form.get('_method')) }}
+                                <div class="box-footer">
+                                    {{ formButton(submit) }}
+                                </div> 
+ 			  {{ form().closeTag(form) | raw }} 
 		  </div>
 	  </div>
 
@@ -39,5 +38,5 @@
 {% endblock %}
 
 {% block page_header %}
-	Exclusão de Contato - {{ customer.name }}
+	Exclusão de Contato - {{ form.getObject().name }}
 {% endblock %}

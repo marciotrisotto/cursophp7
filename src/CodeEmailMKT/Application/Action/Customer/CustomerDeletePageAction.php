@@ -9,7 +9,9 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
+use CodeEmailMKT\Application\Form\CustomerForm;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use CodeEmailMKT\Application\Form\HttpMethodElement;
 
 class CustomerDeletePageAction
 {
@@ -38,6 +40,11 @@ class CustomerDeletePageAction
 	   
    	   $id = $request->getAttribute('id');
 	   $entity = $this->repository->find($id);
+           
+           $form = new CustomerForm();
+           $form->add(new HttpMethodElement('DELETE'));
+           $form->bind($entity);           
+           
 	   if($request->getMethod() == "DELETE") {
 	 	  $flash = $request->getAttribute('flash');
 		  $this->repository->remove($entity);
@@ -46,7 +53,7 @@ class CustomerDeletePageAction
 		  return new RedirectResponse($uri);
 	   }
        return new HtmlResponse($this->template->render("app::customer/delete",[
-	    'customer' => $entity
+	    'form' => $form
 	   ]));
 	   
     }

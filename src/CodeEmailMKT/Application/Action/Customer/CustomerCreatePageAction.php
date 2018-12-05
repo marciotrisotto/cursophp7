@@ -16,15 +16,17 @@ use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
 
 class CustomerCreatePageAction
 {
- 	
+    
     private $template;
-	private $repository;
-	private $router;
+    private $repository;
+    private $router;
+    private $form;
  	
     public function __construct(
 		CustomerRepositoryInterface $repository,
 		Template\TemplateRendererInterface $template = null,
-		RouterInterface $router
+		RouterInterface $router,
+                CustomerForm $form
 	  )
 	  
     {
@@ -33,28 +35,30 @@ class CustomerCreatePageAction
         //$this->manager = $manager;
         $this->repository = $repository;
         $this->router = $router;	
+        $this->form = $form;
 		
     }
  	
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-
-           $form = new CustomerForm();
-	   
+       
 	   if($request->getMethod() == "POST") {
-		  $flash = $request->getAttribute('flash');
-	      $data = $request->getParsedBody();
-		  $entity = new Customer();
-		  $entity->setName($data['name'])
-  		  		 ->setEmail($data['email']);
-		  $this->repository->create($entity);
-		  $flash->setMessage('success','Contato cadastrado com sucesso!');
-		  $uri = $this->router->generateUri('customer.list');
-		  return new RedirectResponse($uri);
+	      $flash = $request->getAttribute('flash');
+	      $dataRaw = $request->getParsedBody();
+              $this->form->setData($dataRaw);
+              
+              if($this->form->isValid()){
+                $entity = $this->form->getData();
+                $this->repository->create($entity);
+                $flash->setMessage('success','Contato cadastrado com sucesso!');
+                $uri = $this->router->generateUri('customer.list');
+                return new RedirectResponse($uri);                  
+              }
+              
 	   }
-       return new HtmlResponse($this->template->render("app::customer/create",[
-	   'form' => $form
-	   ]));
+        return new HtmlResponse($this->template->render("app::customer/create",[
+	   'form' => $this->form
+	]));
 	   
     }
 }
