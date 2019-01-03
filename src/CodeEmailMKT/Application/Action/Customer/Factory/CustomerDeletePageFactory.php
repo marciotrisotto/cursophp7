@@ -7,6 +7,7 @@ use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
+use CodeEmailMKT\Application\Form\CustomerForm;
 
 class CustomerDeletePageFactory
 { 
@@ -15,7 +16,8 @@ class CustomerDeletePageFactory
     {
         $template = $container->get(TemplateRendererInterface::class);
         $repository = $container->get(CustomerRepositoryInterface::class);
-		$router = $container->get(RouterInterface::class);
-        return new CustomerDeletePageAction($repository,$template,$router);
+	$router = $container->get(RouterInterface::class);
+        $form = $container->get(CustomerForm::class);
+        return new CustomerDeletePageAction($repository,$template,$router,$form);
     }
 }

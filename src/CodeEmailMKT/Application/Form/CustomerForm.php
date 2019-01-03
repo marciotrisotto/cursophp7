@@ -28,7 +28,7 @@ class CustomerForm extends Form {
         
         $this->add([
             'name' => 'email',
-            'type' => Element\Email::class,
+            'type' => Element\Text::class,
             'options' => [
                 'label' => 'E-mail'
             ],

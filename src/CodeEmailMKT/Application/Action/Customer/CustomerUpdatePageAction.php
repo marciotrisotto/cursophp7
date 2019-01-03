@@ -12,26 +12,29 @@ use Zend\Expressive\Router\RouterInterface;
 use CodeEmailMKT\Application\Form\CustomerForm;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use CodeEmailMKT\Application\Form\HttpMethodElement;
+use Zend\View\HelperPluginManager;
+use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
 
 class CustomerUpdatePageAction
 {
  	
     private $template;
-	//private $manager;
-	private $repository;
-	private $router;
+    private $repository;
+    private $router;
+    private $form;
  	
     public function __construct(
 		CustomerRepositoryInterface $repository,
 		Template\TemplateRendererInterface $template = null,
-		RouterInterface $router
+		RouterInterface $router,
+                CustomerForm $form
 	  )
     {
 		
         $this->template = $template;
-        //$this->manager = $manager;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
 		
     }
  	
@@ -41,17 +44,16 @@ class CustomerUpdatePageAction
    	   $id = $request->getAttribute('id');
 	   $entity = $this->repository->find($id);
  	   	
-           $form = new CustomerForm();
-           $form->add(new HttpMethodElement('PUT'));
-           $form->bind($entity);
+           $this->form->add(new HttpMethodElement('PUT'));
+           $this->form->bind($entity);
            
 	   if($request->getMethod() == "PUT") {
               $flash = $request->getAttribute('flash');
 	      $dataRaw = $request->getParsedBody();
-              $form->setData($dataRaw);
+              $this->form->setData($dataRaw);
               
-              if($form->isValid()){
-                  $entity = $form->getData();
+              if($this->form->isValid()){
+                  $entity = $this->form->getData();
                   $this->repository->update($entity);
 		  $flash->setMessage('success','Contato atualizado com sucesso!');
 		  $uri = $this->router->generateUri('customer.list');
@@ -61,7 +63,7 @@ class CustomerUpdatePageAction
 	   }       
            
            return new HtmlResponse($this->template->render("app::customer/update",[
-	    'form' => $form
+	    'form' => $this->form
 	   ]));
 	   
     }

@@ -12,26 +12,28 @@ use Zend\Expressive\Router\RouterInterface;
 use CodeEmailMKT\Application\Form\CustomerForm;
 use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use CodeEmailMKT\Application\Form\HttpMethodElement;
+use Zend\View\HelperPluginManager;
+use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
 
-class CustomerDeletePageAction
-{
+class CustomerDeletePageAction {
  	
     private $template;
-	//private $manager;
-	private $repository;
-	private $router;
+    private $repository;
+    private $router;
+    private $form;
  	
     public function __construct(
 		CustomerRepositoryInterface $repository,
 		Template\TemplateRendererInterface $template = null,
-		RouterInterface $router
+		RouterInterface $router,
+                CustomerForm $form
 	  )
     {
 		
         $this->template = $template;
-        //$this->manager = $manager;
         $this->repository = $repository;
         $this->router = $router;
+        $this->form = $form;
 		
     }
  	
@@ -39,11 +41,11 @@ class CustomerDeletePageAction
     {
 	   
    	   $id = $request->getAttribute('id');
+           
 	   $entity = $this->repository->find($id);
            
-           $form = new CustomerForm();
-           $form->add(new HttpMethodElement('DELETE'));
-           $form->bind($entity);           
+           $this->form->add(new HttpMethodElement('DELETE'));
+           $this->form->bind($entity);           
            
 	   if($request->getMethod() == "DELETE") {
 	 	  $flash = $request->getAttribute('flash');
@@ -53,8 +55,9 @@ class CustomerDeletePageAction
 		  return new RedirectResponse($uri);
 	   }
        return new HtmlResponse($this->template->render("app::customer/delete",[
-	    'form' => $form
+	    'form' => $this->form
 	   ]));
 	   
     }
+    
 }

@@ -22,13 +22,13 @@ class CustomerInputFilter extends InputFilter {
             ]);
             
             $this->add([
-                'email' => 'email',
+                'name' => 'email',
                 'required' => true,
                 'filters' => [
                   ['name' => StringTrim::class],
                 ],
                 'validators' => [
-                   [
+                  [
                       'name' => NotEmpty::class,
                       'break_chain_on_failure' => true,
                       'options' => [
@@ -36,22 +36,18 @@ class CustomerInputFilter extends InputFilter {
                             NotEmpty::IS_EMPTY => "Este campo é requerido."
                           ]
                       ]
-                   ]
-                ]
-               ]);
-            
-                $this->add([
-                    'email' => 'email',
-                    'filters' => [
-                      ['name' => EmailAddress::class],
-                    ],                    
+                  ],
+                  [
+                    'name' => EmailAddress::class,
                       'options' => [
                           'messages' => [
                             EmailAddress::INVALID => "Este e-mail não é válido.",
                             EmailAddress::INVALID_FORMAT => "Este e-mail não é válido."
                            ]
                       ]
-                ]);            
+                  ]
+                ]
+            ]);            
                 
     }
     
