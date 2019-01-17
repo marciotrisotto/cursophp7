@@ -14,6 +14,7 @@ use CodeEmailMKT\Domain\Persistence\CustomerRepositoryInterface;
 use Zend\View\HelperPluginManager;
 use CodeEmailMKT\Infrastructure\View\HelperPluginManagerFactory;
 
+
 class CustomerCreatePageAction
 {
     
@@ -21,7 +22,7 @@ class CustomerCreatePageAction
     private $repository;
     private $router;
     private $form;
- 	
+    
     public function __construct(
 		CustomerRepositoryInterface $repository,
 		Template\TemplateRendererInterface $template = null,
@@ -43,11 +44,13 @@ class CustomerCreatePageAction
     {
        
 	   if($request->getMethod() == "POST") {
+               
 	      $flash = $request->getAttribute('flash');
 	      $dataRaw = $request->getParsedBody();
               $this->form->setData($dataRaw);
               
               if($this->form->isValid()){
+                  
                 $entity = $this->form->getData();
                 $this->repository->create($entity);
                 $flash->setMessage('success','Contato cadastrado com sucesso!');
@@ -56,6 +59,7 @@ class CustomerCreatePageAction
               }
               
 	   }
+           //exit;
         return new HtmlResponse($this->template->render("app::customer/create",[
 	   'form' => $this->form
 	]));

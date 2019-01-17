@@ -54,6 +54,8 @@ class CustomerDeletePageAction {
 		  $uri = $this->router->generateUri('customer.list');
 		  return new RedirectResponse($uri);
 	   }
+           
+           
        return new HtmlResponse($this->template->render("app::customer/delete",[
 	    'form' => $this->form
 	   ]));

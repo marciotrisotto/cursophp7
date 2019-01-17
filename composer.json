@@ -41,8 +41,8 @@
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.3",
         "filp/whoops": "^1.1 || ^2.0",
-        "codeedu/zendexpr-doctrine-fixture": "0.0.1",
-        "fzaninotto/faker": "^1.8"        
+        "fzaninotto/faker": "^1.8",
+        "codeedu/zendexpr-doctrine-fixture": "0.0.2"
     },
     "autoload": {
         "psr-4": {
